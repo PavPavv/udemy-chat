@@ -6,7 +6,7 @@ import appConfig from '../config/app';
 import { User } from '../types/users';
 
 export const generateTokenService = (user: User) => {
-  // delete user?.password;
+  user.password = '';
   const token = jwt.sign(user, appConfig.appKey as string, {expiresIn: 860000});
   return {
     ...user,

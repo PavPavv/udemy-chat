@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from'axios';
+import authService from "../../services/authService";
 
 //  ui
 import LoginImage from '../../assests/images/login.svg';
@@ -24,20 +24,9 @@ const Login = ():JSX.Element => {
       email,
       password,
     });
-    //  http request with login data
-    //  axios.get('/')
-    axios.post('http://127.0.0.1:8080/auth/login', { email, password })
-    // fetch('http://127.0.0.1:8080/auth/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     email, password
-    //   })
-    // })
-      .then((res): void => {
-        console.log('response',res);
-      })
-      .catch((err: any): void => {
-        console.log('error', err);
+    authService.login({email, password})
+      .then(res => {
+        console.log(res)
       })
   };
 

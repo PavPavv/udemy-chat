@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import authService from "../../services/authService";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { loginActionThunk } from "../../store/auth/actions";
 
 //  ui
 import LoginImage from '../../assests/images/login.svg';
 import styles from './Auth.module.scss';
 
 const Login = ():JSX.Element => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -24,10 +27,7 @@ const Login = ():JSX.Element => {
       email,
       password,
     });
-    authService.login({email, password})
-      .then(res => {
-        console.log(res)
-      })
+    dispatch(loginActionThunk({email, password}, navigate));
   };
 
   return (

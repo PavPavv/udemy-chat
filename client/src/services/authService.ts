@@ -1,46 +1,28 @@
 import { AxiosResponse } from 'axios';
 import API from './api';
+import { LoginInterface, RegisterInterface} from '../store/auth/types';
 
-interface LoginInterface {
-  email: string;
-  password: string;
-}
-
-interface UserResponse {
-  id: number;
-  firstName: string;
-  lastName: string;
-  createdAt: string;
-  email: string;
-  password: string;
-  token: string;
-  updatedAt: string;
-  age?: string;
-  avatar?: string;
-  sex?: string;
-}
-interface LoginResponse {
-  message: string;
-  user: UserResponse;
-}
-
-
-
-const authService = {
-  login: (data: LoginInterface) => {
-    return API.post('/auth/login', data)
-      .then((res): AxiosResponse<LoginResponse> => {
-        API.defaults.headers.common['Authorization'] = `Bearer ${res.data.user.token}` 
-        return res;
-      })
-      .catch((err: Promise<never>) => {
-        console.log('err', err);
-        throw err;
-      })
+export const authService = {
+  register: async (data: RegisterInterface) => {
+    console.log('data', data)
+    try {
+      const res: AxiosResponse = await API.post('/users/register', data);
+      return res;
+    } catch (err) {
+      console.log('err', err);
+      throw err;
+    }
   },
 
-  register: (data: {}) => {
-
+  login: async (data: LoginInterface) => {
+    try {
+      const res: AxiosResponse = await API.post('/auth/login', data);
+      API.defaults.headers.common['Authorization'] = `Bearer ${res.data.user.token}`;
+      return res;
+    } catch (err) {
+      console.log('err', err);
+      throw err;
+    }
   },
 
   logout: () => {
@@ -49,9 +31,7 @@ const authService = {
 };
 
 // const setHeadersAndStorage = ({ user, token }): void => {
-//   API.defaults.headers['Authorization'] = `Bearer ${token}`
+//   API.defaults.headers.common['Authorization'] = `Bearer ${token}`
 //   localStorage.setItem('user', JSON.stringify(user))
 //   localStorage.setItem('token', token)
 // }
-
-export default authService;

@@ -19,7 +19,7 @@ export type RegisterInterface = {
   sex: string;
 };
 
-export type UserResponse = {
+export type UserRequest = {
   email: string;
   firstName: string;
   lastName: string;
@@ -27,9 +27,23 @@ export type UserResponse = {
   age: string;
 };
 
-export type LoginResponse = {
+export type LoginRequest = {
   message: string;
-  user: UserResponse;
+  user: UserRequest;
+};
+
+export type LoginResponse = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  age: string;
+  sex: string;
+  avatar: undefined | string;
+  createdAt: string;
+  id: number;
+  updatedAt: string;
+  token: string;
 };
 
 export type authAction = {

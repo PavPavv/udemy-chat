@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 
 import { StoreState } from "../../store/rootReducer";
 
+//  ui
+import Navbar from "./components/Navbar/Navbar";
+
 const Chat = ():JSX.Element => {
   const state = useSelector((state: StoreState) => state);
   
@@ -11,7 +14,10 @@ const Chat = ():JSX.Element => {
   }, [state]);
   
   return (
-    <div>Chat</div>
+    <div className="chat-container">
+      <Navbar />
+      <div className="chat-wrap">Chat</div>
+    </div>
   );
 };
 

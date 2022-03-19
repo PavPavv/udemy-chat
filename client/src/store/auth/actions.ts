@@ -2,7 +2,7 @@
 import { Dispatch } from 'redux';
 import { NavigateFunction } from 'react-router-dom';
 import { authService } from '../../services/authService';
-import { AUTH_TYPES, LoginInterface, UserResponse, RegisterInterface } from './types';
+import { AUTH_TYPES, LoginInterface, LoginResponse, RegisterInterface } from './types';
 
 //  action creators
 export const authStart = () => {
@@ -11,7 +11,7 @@ export const authStart = () => {
   };
 };
 
-export const loginSuccess = (data: UserResponse) => {
+export const loginSuccess = (data: LoginResponse) => {
   return {
     type: AUTH_TYPES.LOGIN_SUCCESS,
     payload: data,
@@ -42,8 +42,9 @@ export const registerActionThunk = (userData: RegisterInterface, navigate: Navig
       console.log('registerActionThunk',res)
       dispatch(registerSuccess())
       navigate('/login');
+    } else {
+      dispatch(authError())
     }
-    dispatch(authError())
   } catch (err: any) {
     console.log('login thunk error', err);
     dispatch(authError())
@@ -57,11 +58,12 @@ export const loginActionThunk = (params: LoginInterface, navigate: NavigateFunct
   try {
     const res = await authService.login(params);
     if (res.status === 200 && res.data && res.data.user) {
-      console.log('loginActionThunk',res)
+      console.log('loginActionThunk',res.data.user)
       dispatch(loginSuccess(res.data.user))
       navigate('/');
+    } else {
+      dispatch(authError())
     }
-    dispatch(authError())
   } catch (err: any) {
     console.log('login thunk error', err);
     dispatch(authError())

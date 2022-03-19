@@ -1,5 +1,5 @@
-import React, { ComponentType, FC } from "react";
-import { Route, Navigate } from "react-router-dom";
+import React from "react";
+import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { StoreState } from "../../store/rootReducer";

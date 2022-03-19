@@ -1,8 +1,8 @@
-import { authAction, AUTH_TYPES, UserResponse } from './types';
+import { authAction, AUTH_TYPES, LoginResponse } from './types';
 
 
 export interface AuthState {
-  user: null | UserResponse;
+  user: null | LoginResponse;
   token: string;
   isLoggedIn: boolean;
   isLoading: boolean;
@@ -34,6 +34,7 @@ const authSuccess = (state: AuthState, action: authAction) => {
     ...{
       isLoading: false,
       error: false,
+      isLoggedIn: true,
       user: action.payload,
       token: action.payload?.token,
     }

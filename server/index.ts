@@ -20,7 +20,10 @@ app.use(express.urlencoded({
 app.use(cors());
 
 // global routing
-app.use(router)
+app.use(router);
+
+//  serve static files
+app.use(express.static(__dirname + '/public'));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

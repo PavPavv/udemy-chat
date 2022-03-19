@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerActionThunk } from "../../store/auth/actions";
 
 // ui
-import RegisterImage from '../../assests/images/register.svg';
-import styles from './Auth.module.scss';
+import RegisterImage from "../../assests/images/register.svg";
+import styles from "./Auth.module.scss";
 
 const Register = ():JSX.Element => {
   const dispatch = useDispatch();

@@ -25,6 +25,7 @@ export const loginService = async (email: string, password: string) => {
     }
 
     const userWithToken = generateTokenService(user.get({ raw: true, }));
+    userWithToken.avatar = user.avatar;
     return userWithToken;
   }
 

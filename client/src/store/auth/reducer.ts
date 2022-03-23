@@ -1,4 +1,5 @@
 import { authAction, AUTH_TYPES, LoginResponse } from './types';
+import authService from '../../services/authService';
 
 
 export interface AuthState {
@@ -10,9 +11,9 @@ export interface AuthState {
 };
 
 const initialState: AuthState = {
-  user: null,
-  token: '',
-  isLoggedIn: false,
+  user: JSON.parse(localStorage.getItem(`${authService._appStorageName}_user`) || '{}'),
+  token: localStorage.getItem(`${authService._appStorageName}_token`) || '',
+  isLoggedIn: !!localStorage.getItem(`${authService._appStorageName}_user`),
   isLoading: false,
   error: false,
 };
@@ -61,6 +62,13 @@ const authError = (state: AuthState, action: authAction) => {
   }
 };
 
+const logout = (state: AuthState, action: authAction) => {
+  return {
+    ...state,
+    ...initialState,
+  }
+};
+
 export const authReducer = (state = initialState, action: authAction) => {
   const { type } = action;
   
@@ -69,6 +77,7 @@ export const authReducer = (state = initialState, action: authAction) => {
     case AUTH_TYPES.AUTH_ERROR: return authError(state, action);
     case AUTH_TYPES.LOGIN_SUCCESS: return authSuccess(state, action);
     case AUTH_TYPES.REGISTER_SUCCESS: return registerSuccess(state, action);
+    case AUTH_TYPES.LOGOUT: return logout(state, action);
     default: return state;
   }
 };

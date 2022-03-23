@@ -13,11 +13,6 @@
       color: white;
   }
 
-  .fa-icon {
-      color: white;
-      margin-left: 5px;
-  }
-
   .profileMenu {
       display: flex;
       justify-content: flex-end;
@@ -26,21 +21,26 @@
       position: relative;
       cursor: pointer;
 
+      img {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        color: white;
+        align-self: center;
+        margin-right: 5px;
+        border-radius: 20px;
+      }
+
       p {
           display: flex;
           align-self: center;
           color: white;
       }
 
-      img {
-          display: flex;
-          width: 40px;
-          height: 40px;
-          color: white;
-          align-self: center;
-          margin-right: 5px;
-          border-radius: 20px;
-      }
+      .faIcon {
+        color: white;
+        margin-left: 5px;
+       }
 
       .profileOptions {
           position: absolute;

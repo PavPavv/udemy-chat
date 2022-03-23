@@ -1,7 +1,7 @@
 
 import { Dispatch } from 'redux';
 import { NavigateFunction } from 'react-router-dom';
-import { authService } from '../../services/authService';
+import authService from '../../services/authService';
 import { AUTH_TYPES, LoginInterface, LoginResponse, RegisterInterface } from './types';
 
 //  action creators
@@ -28,6 +28,12 @@ export const authError = () => {
   return {
     type: AUTH_TYPES.AUTH_ERROR,
   };
+};
+
+export const logout = () => {
+  return {
+    type: AUTH_TYPES.LOGOUT,
+  }
 };
 
 //  register thunk
@@ -58,8 +64,7 @@ export const loginActionThunk = (params: LoginInterface, navigate: NavigateFunct
   try {
     const res = await authService.login(params);
     if (res.status === 200 && res.data && res.data.user) {
-      console.log('loginActionThunk',res.data.user)
-      dispatch(loginSuccess(res.data.user))
+      dispatch(loginSuccess(res.data.user.user))
       navigate('/');
     } else {
       dispatch(authError())
@@ -68,4 +73,10 @@ export const loginActionThunk = (params: LoginInterface, navigate: NavigateFunct
     console.log('login thunk error', err);
     dispatch(authError())
   }
+};
+
+//  logout
+export const logoutAction = () => async (dispatch: Dispatch) => {
+  dispatch(logout())
+  authService.logout();
 };

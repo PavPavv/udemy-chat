@@ -1,18 +1,9 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-
-import { StoreState } from "../../store/rootReducer";
+import React from "react";
 
 //  ui
 import Navbar from "./components/Navbar/Navbar";
 
-const Chat = ():JSX.Element => {
-  const state = useSelector((state: StoreState) => state);
-  
-  useEffect(() => {
-    console.log('state',state);
-  }, [state]);
-  
+const Chat = ():JSX.Element => {  
   return (
     <div className="chat-container">
       <Navbar />

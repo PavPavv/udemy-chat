@@ -12,3 +12,4 @@ export type User = {
 }
 
 export type NewUser = Omit<User, "id" | "avatar" | "createdAt" | "updatedAt">
+export type UpdatedUser = Omit<User, "createdAt" | "updatedAt">

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 
@@ -9,11 +9,53 @@ import authService from "../../../../services/authService";
 import Modal from "../../../Modal/Modal";
 import styles from "./Navbar.module.scss";
 
+type FormType = {
+  firstName : string;
+  lastName: string;
+  email: string;
+  age: string;
+  sex: string;
+  password: string;
+  avatar: string;
+};
+
 const Navbar = (): JSX.Element => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem(`${authService._appStorageName}_user`) || '').user;
   const [showProfileOptions, setProfileOptions] = useState(false);
   const [showProfileModal, setProfileModal] = useState(false);
+  const [firstName, setFirstName] = useState(user.firstName || '');
+  const [lastName, setLastName] = useState(user.lastName || '');
+  const [email, setEmail] = useState(user.email || '');
+  const [password, setPassword] = useState('');
+  const [age, setAge] = useState(user.age || 18);
+  const [sex, setSex] = useState(user.sex || 'male');
+  const [avatar, setAvatar] = useState(user.avatar || '');
+
+  useEffect(() => {
+    console.log(user)
+  }, [user]);
+
+  const handleSubmit = (e: React.FormEvent): void => {
+    e.preventDefault()
+
+    const form: FormType = {
+      firstName,
+      lastName,
+      email,
+      age,
+      sex,
+      password,
+      avatar,
+    };
+
+    const formData: FormData = new FormData();
+    for (const key in form) {
+      formData.append(key, form as unknown as Blob);
+    }
+
+    //  dispatch()
+  };
 
   const handleLogout = (): void => {
     dispatch(logoutAction())
@@ -43,13 +85,82 @@ const Navbar = (): JSX.Element => {
         {showProfileModal &&
           <Modal clicked={() => setProfileModal(false)}>
             <Fragment key="header">
-              Modal header
+              <h3 className="m-0">Update profile</h3>
             </Fragment>
             <Fragment key="body">
-              Modal body
+              <form>
+                <div className="mb-1">
+                  <input
+                    type="text" 
+                    placeholder='First name'
+                    value={firstName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-1">
+                  <input 
+                    type="text"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-1">
+                  <select 
+                    onChange={
+                      (e: React.ChangeEvent<HTMLSelectElement>) => 
+                        setSex(e.target.value)
+                    }
+                    value={sex}
+                  >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+
+                <div className="mb-1">
+                  <input 
+                    type="number" 
+                    min="18" 
+                    max="99" 
+                    placeholder='Age'
+                    value={age}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAge(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-1">
+                  <input 
+                    type="email" 
+                    placeholder='Email'
+                    value={email}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-1">
+                  <input 
+                    type="password" 
+                    placeholder='Password'
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-1">
+                  <input 
+                    type="file" 
+                    onChange={
+                      (e: React.ChangeEvent<HTMLInputElement>) => 
+                        setAvatar(e.target.files ? e.target.files[0] : '')
+                    }
+                  />
+                </div>
+              </form>
             </Fragment>
             <Fragment key="footer">
-              Modal header
+            <button type="submit" className={styles.btnSuccess}>Update</button>
             </Fragment> 
           </Modal>
         }

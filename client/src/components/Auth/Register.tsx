@@ -40,7 +40,7 @@ const Register = ():JSX.Element => {
           <div className={styles.formSection}>
             <h2>Create an account</h2>
             <form onSubmit={handleSubmit}>
-              <div className={styles.inputField}>
+              <div className="mb-1">
                 <input 
                   type="text" 
                   placeholder='First name'
@@ -48,7 +48,7 @@ const Register = ():JSX.Element => {
                 />
               </div>
 
-              <div className={styles.inputField}>
+              <div className="mb-1">
                 <input 
                   type="text" 
                   placeholder='Last name'
@@ -56,7 +56,7 @@ const Register = ():JSX.Element => {
                 />
               </div>
 
-              <div className={`${styles.inputField} mb-1`}>
+              <div className="mb-1">
                 <select 
                   onChange={
                     (e: React.ChangeEvent<HTMLSelectElement>) => 
@@ -69,7 +69,7 @@ const Register = ():JSX.Element => {
                 </select>
               </div>
 
-              <div className={styles.inputField}>
+              <div className="mb-1">
                 <input 
                   type="number" 
                   min="18" 
@@ -79,7 +79,7 @@ const Register = ():JSX.Element => {
                 />
               </div>
 
-              <div className={styles.inputField}>
+              <div className="mb-1">
                 <input 
                   type="email" 
                   placeholder='Email'
@@ -87,7 +87,7 @@ const Register = ():JSX.Element => {
                 />
               </div>
 
-              <div className={styles.inputField}>
+              <div className="mb-1">
                 <input 
                   type="password" 
                   placeholder='Password'

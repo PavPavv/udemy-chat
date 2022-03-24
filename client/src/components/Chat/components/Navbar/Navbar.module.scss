@@ -59,19 +59,16 @@
       }
 
       form {
-          .input-field {
-
-              input,
-              select {
-                  height: 40px;
-                  width: 100%;
-                  box-sizing: border-box;
-              }
-          }
+        input,
+        select {
+            height: 40px;
+            width: 100%;
+            box-sizing: border-box;
+        }
       }
 
-      .btn-success {
-          background-color: $success;
+      .btnSuccess {
+          background-color: $success!important;
           border: none;
           padding: 5px;
           width: 70px;

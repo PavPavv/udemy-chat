@@ -1,6 +1,5 @@
 'use strict';
 const bcrypt = require('bcrypt');
-const config = require('../config/app.ts');
 
 
 const {
@@ -28,11 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         const avatar = this.getDataValue('avatar');
         const sex = this.getDataValue('sex');
         const url = `http://127.0.0.1:8080`;
+        const id = this.getDataValue("id");
         if (!avatar) {
           if (!sex) {
             return `${url}/male.svg`;
           }
-          return `${url}/${this.getDataValue('sex')}.svg`;
+          return `${url}/user/${id}/${avatar}.svg`;
         }
       },
     },

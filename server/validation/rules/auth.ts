@@ -1,7 +1,4 @@
-import { body, ValidationChain } from 'express-validator';
-// import { ErrorRequestHandler } from 'express';
-
-// interface ValidationRules extends ValidationChain {}
+import { body } from 'express-validator';
 
 export const authRules = (): any => {  
   return [

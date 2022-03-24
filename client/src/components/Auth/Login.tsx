@@ -41,7 +41,7 @@ const Login = ():JSX.Element => {
           <div className={styles.formSection}>
             <h2>Welcome</h2>
             <form onSubmit={handleSubmit}>
-              <div className={styles.inputField}>
+              <div className="mb-1">
                 <input
                   name="email" 
                   type="email" 
@@ -52,7 +52,7 @@ const Login = ():JSX.Element => {
                 />
               </div>
 
-              <div className={styles.inputField}>
+              <div className="mb-1">
                 <input
                   name="password"
                   type="password" 

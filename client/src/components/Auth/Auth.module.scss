@@ -55,15 +55,11 @@
                 form {
                     padding: 20px;
 
-                    .inputField {
-                        margin-bottom: 20px;
-
-                        input,
-                        select {
-                            height: 40px;
-                            width: 100%;
-                            box-sizing: border-box;
-                        }
+                    input,
+                    select {
+                        height: 40px;
+                        width: 100%;
+                        box-sizing: border-box;
                     }
 
                     button {

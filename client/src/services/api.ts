@@ -1,13 +1,10 @@
 import axios from 'axios';
 
-//  import store from '../store'
-//  import { logout } from '../store/actions/auth'
-
 const API = axios.create({
     baseURL: 'http://127.0.0.1:3000',
     headers: {
       'Accept': 'application/json',
-      // 'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+      'Authorization': `Bearer ${localStorage.getItem(`CHAT_APP_STORAGE_token`) || ''}`,
     }
 })
 

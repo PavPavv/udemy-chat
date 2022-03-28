@@ -47,7 +47,7 @@ export type LoginResponse = {
   token: string;
 };
 
-export type authAction = {
+export type AuthAction = {
   type: string;
   payload?: any;
 };

@@ -32,8 +32,9 @@ module.exports = (sequelize, DataTypes) => {
           if (!sex) {
             return `${url}/male.svg`;
           }
-          return `${url}/user/${id}/${avatar}.svg`;
+          return `${url}/user/${id}/${sex}.svg`;
         }
+        return `${url}/user/${id}/${avatar}`;
       },
     },
     age: DataTypes.NUMBER,

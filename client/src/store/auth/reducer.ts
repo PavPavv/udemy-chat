@@ -1,4 +1,4 @@
-import { authAction, AUTH_TYPES, LoginResponse } from './types';
+import { AuthAction, AUTH_TYPES, LoginResponse } from './types';
 import authService from '../../services/authService';
 
 
@@ -19,7 +19,7 @@ const initialState: AuthState = {
 };
 
 //  reducer's helpers functions
-const authStart = (state: AuthState, action: authAction) => {
+const authStart = (state: AuthState, action: AuthAction) => {
   return {
     ...state,
     ...{
@@ -29,7 +29,7 @@ const authStart = (state: AuthState, action: authAction) => {
   }
 };
 
-const authSuccess = (state: AuthState, action: authAction) => {
+const authSuccess = (state: AuthState, action: AuthAction) => {
   return {
     ...state,
     ...{
@@ -42,7 +42,7 @@ const authSuccess = (state: AuthState, action: authAction) => {
   }
 };
 
-const registerSuccess = (state: AuthState, action: authAction) => {
+const registerSuccess = (state: AuthState, action: AuthAction) => {
   return {
     ...state,
     ...{
@@ -52,7 +52,7 @@ const registerSuccess = (state: AuthState, action: authAction) => {
   }
 };
 
-const authError = (state: AuthState, action: authAction) => {
+const authError = (state: AuthState, action: AuthAction) => {
   return {
     ...state,
     ...{
@@ -62,14 +62,14 @@ const authError = (state: AuthState, action: authAction) => {
   }
 };
 
-const logout = (state: AuthState, action: authAction) => {
+const logout = (state: AuthState, action: AuthAction) => {
   return {
     ...state,
     ...initialState,
   }
 };
 
-export const authReducer = (state = initialState, action: authAction) => {
+export const authReducer = (state = initialState, action: AuthAction) => {
   const { type } = action;
   
   switch (type) {

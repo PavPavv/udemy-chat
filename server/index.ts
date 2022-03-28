@@ -24,6 +24,7 @@ app.use(router);
 
 //  serve static files
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/uploads'));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

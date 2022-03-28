@@ -37,6 +37,9 @@ export const fileMiddleware = ((req, res, next) => {
       cb: DestinationCallback
     ): void => {
 
+
+      console.log('fileMiddleware req.body', req.body);
+      // console.log('fileMiddleware req.user', req.user);
       const { id } = req.body;
       const dest = `uploads/user/${id}`;
 

@@ -30,6 +30,16 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
+  if (req.file) {
+    req.body.avatar = req.file.filename;
+  }
+  if (typeof req.body.avatar !== 'undefined' 
+    && req.body.avatar.length === 0) {
+      delete req.body.avatar;
+  }
+  
+  console.log('REQ', req.body)
+
   //  get data from client's request
   const {
     id,
@@ -40,13 +50,7 @@ export const updateUser = async (req: Request, res: Response) => {
     age, 
     sex, 
     avatar } = req.body;
-  
-  if (req.file) req.body.avatar = req.file.filename;
-  if (typeof req.body.avatar !== 'undefined' 
-    && req.body.avatar.length === 0) {
-      delete req.body.avatar;
-    }
-  
+
   const updatedUser = await usersServices.updateUserService(
     { 
       id,
@@ -62,8 +66,11 @@ export const updateUser = async (req: Request, res: Response) => {
 
   if (updatedUser) {
     return res
-      .status(StatusCodes.SuccessfullyCreated)
-      .json({message: `${updatedUser} been successfully updated`,});
+      .status(StatusCodes.OK)
+      .json({
+        message: `${updatedUser.firstName} ${updatedUser.lastName} been successfully updated`,
+        user: updatedUser,
+      });
   }
 
   return res

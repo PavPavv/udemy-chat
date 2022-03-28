@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import API from './api';
-import { LoginInterface, RegisterInterface} from '../store/auth/types';
+import { LoginInterface, RegisterInterface } from '../store/auth/types';
+import { UpdateUser } from "../store/user/types";
 
 const authService = {
   _appStorageName: 'CHAT_APP_STORAGE',
@@ -34,6 +35,20 @@ const authService = {
     localStorage.removeItem(`${authService._appStorageName}_user`);
     localStorage.removeItem(`${authService._appStorageName}_token`);
   },
+
+  updateProfile: async (data: UpdateUser) => {
+    try {
+      const res: AxiosResponse = await API.post('/users/update', data);
+      console.log(res);
+      // const user = res.data.user;
+      //  localStorage.setItem(`${authService._appStorageName}_user`, JSON.stringify(user));
+      // setHeadersAndStorage(user);
+      return res;
+    } catch (err) {
+      console.log('err', err);
+      throw err;
+    }
+  },
 };
 
 const setHeadersAndStorage = (user: any) => {
@@ -45,9 +60,3 @@ const setHeadersAndStorage = (user: any) => {
 };
 
 export default authService;
-
-// const setHeadersAndStorage = ({ user, token }): void => {
-//   API.defaults.headers.common['Authorization'] = `Bearer ${token}`
-//   localStorage.setItem('user', JSON.stringify(user))
-//   localStorage.setItem('token', token)
-// }

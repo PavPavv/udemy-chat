@@ -1,13 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 
 import { logoutAction } from "../../../../store/auth/actions";
+import { updateUserActionThunk } from "../../../../store/user/actions";
 import authService from "../../../../services/authService";
 
 //  ui
 import Modal from "../../../Modal/Modal";
 import styles from "./Navbar.module.scss";
+import { blob } from "stream/consumers";
 
 type FormType = {
   firstName : string;
@@ -21,7 +23,8 @@ type FormType = {
 
 const Navbar = (): JSX.Element => {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem(`${authService._appStorageName}_user`) || '').user;
+  const storedUser = JSON.parse(localStorage.getItem(`${authService._appStorageName}_user`) || '');
+  const user = storedUser.user;
   const [showProfileOptions, setProfileOptions] = useState(false);
   const [showProfileModal, setProfileModal] = useState(false);
   const [firstName, setFirstName] = useState(user.firstName || '');
@@ -32,14 +35,13 @@ const Navbar = (): JSX.Element => {
   const [sex, setSex] = useState(user.sex || 'male');
   const [avatar, setAvatar] = useState(user.avatar || '');
 
-  useEffect(() => {
-    console.log(user)
-  }, [user]);
-
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
+    const userId = user.id;
+    console.log(userId);
 
-    const form: FormType = {
+    const form: any = {
+      id: userId,
       firstName,
       lastName,
       email,
@@ -49,12 +51,17 @@ const Navbar = (): JSX.Element => {
       avatar,
     };
 
-    const formData: FormData = new FormData();
-    for (const key in form) {
-      formData.append(key, form as unknown as Blob);
+    if (password.length > 0) {
+      form.password = password;
     }
 
-    //  dispatch()
+    const formData = new FormData();
+    for (const key in form) {
+      formData.append(key, form[key]);
+    }
+
+    dispatch(updateUserActionThunk(formData));
+    setProfileModal(false);
   };
 
   const handleLogout = (): void => {
@@ -160,7 +167,13 @@ const Navbar = (): JSX.Element => {
               </form>
             </Fragment>
             <Fragment key="footer">
-            <button type="submit" className={styles.btnSuccess}>Update</button>
+            <button 
+              type="submit"
+              className={styles.btnSuccess}
+              onClick={handleSubmit}
+              >
+                Update
+            </button>
             </Fragment> 
           </Modal>
         }

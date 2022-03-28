@@ -37,11 +37,10 @@ export const updateUserService = async (userObj: UpdatedUser) => {
     avatar
   );
 
-  console.log('updatedUser',updatedUser)
-
   if (updatedUser) {
     //  const userWithToken = generateTokenService(updatedUser.get({ raw: true, }));
-    return `${firstName} ${lastName}`;
+    //  return `${firstName} ${lastName}`;
+    return updatedUser;
   }
 
   return null;

@@ -34,14 +34,16 @@ export const updateUser = async (
   sex: string,
   avatar: string,
 ) => {
+  let updatedUser = null;
   try {
     const foundUser = await User.findOne({
       where: {
         id,
       },
     });
+
     if (foundUser) {
-      const updatedUser = await User.update({
+      const [ rows, result ] = await User.update({
         email,
         password,
         firstName,
@@ -54,9 +56,15 @@ export const updateUser = async (
           id,
         },
         individualHooks: true,
+        returning: true,
       })
+      const user = result[0].get({ raw: true })
+      user.avatar = result[0].avatar
+      user.password = '';
+      updatedUser = user;
     }
-    return foundUser;
+
+    return updatedUser;
   } catch (err: any) {
     console.log('err', err)
     return null;

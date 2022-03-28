@@ -9,7 +9,7 @@ export type User = {
   age: number,
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export type NewUser = Omit<User, "id" | "avatar" | "createdAt" | "updatedAt">
-export type UpdatedUser = Omit<User, "createdAt" | "updatedAt">
+export type NewUser = Omit<User, "id" | "avatar" | "createdAt" | "updatedAt">;
+export type UpdatedUser = Omit<User, "createdAt" | "updatedAt">;

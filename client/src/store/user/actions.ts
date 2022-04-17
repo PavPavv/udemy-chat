@@ -29,8 +29,7 @@ export const updateUserActionThunk = (userData: any) => async (dispatch: Dispatc
   console.log('userData',userData)
   try {
     const res = await userService.updateProfile(userData);
-    console.log('login res',res)
-    console.log('res',res)
+    console.log('updateUserActionThunk res',res)
     if (res.status === 200 && res.data) {
       console.log('registerActionThunk',res)
       const updatedUser = res.data.user.user;

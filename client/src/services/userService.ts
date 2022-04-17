@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import API from './api';
 import { UpdateUser } from "../store/user/types";
 
-const authService = {
+const userService = {
   updateProfile: async (data: any) => {
     const headers = {
       headers: {
@@ -12,7 +12,7 @@ const authService = {
     try {
       console.log('data', data)
       const res: AxiosResponse = await API.post('/users/update', data, headers);
-      console.log(res);
+      console.log('userService res',res);
       // const user = res.data.user;
       //  localStorage.setItem(`${authService._appStorageName}_user`, JSON.stringify(user));
       // setHeadersAndStorage(user);
@@ -24,4 +24,4 @@ const authService = {
   },
 };
 
-export default authService;
+export default userService;

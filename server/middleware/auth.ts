@@ -20,7 +20,8 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
       .status(StatusCodes.Unauthorized)
       .json({ error: err, });
     }
-    //  req.user = user;
+    console.log('req in auth middleware',req);
+    //req.user = user;
   });
 
   next();

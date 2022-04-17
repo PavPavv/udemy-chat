@@ -9,7 +9,6 @@ import authService from "../../../../services/authService";
 //  ui
 import Modal from "../../../Modal/Modal";
 import styles from "./Navbar.module.scss";
-import { blob } from "stream/consumers";
 
 type FormType = {
   firstName : string;
@@ -55,6 +54,7 @@ const Navbar = (): JSX.Element => {
       form.password = password;
     }
 
+    console.log('form',form)
     const formData = new FormData();
     for (const key in form) {
       formData.append(key, form[key]);
@@ -65,6 +65,7 @@ const Navbar = (): JSX.Element => {
   };
 
   const handleLogout = (): void => {
+    console.log('logout')
     dispatch(logoutAction())
   };
 

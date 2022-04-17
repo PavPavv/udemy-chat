@@ -7,26 +7,31 @@ import * as usersServices from '../services/users';
 export const createUser = async (req: Request, res: Response) => {
   //  get data from client's request
   const { email, password, firstName, lastName, age, sex } = req.body;
-  const user = await usersServices.createUserService(
-    { 
-      email,
-      password,
-      firstName,
-      lastName,
-      age,
-      sex,
+
+  try {
+    const user = await usersServices.createUserService(
+      { 
+        email,
+        password,
+        firstName,
+        lastName,
+        age,
+        sex,
+      }
+    );
+  
+    if (user) {
+      return res
+        .status(StatusCodes.SuccessfullyCreated)
+        .json({message: `${user} been successfully created`,});
     }
-  );
-
-  if (user) {
     return res
-      .status(StatusCodes.SuccessfullyCreated)
-      .json({message: `${user} been successfully created`,});
-  }
+      .status(StatusCodes.InternalServerError)
+      .json({message: ErrorsNames.INTERNAL_PROBLEM});
 
-  return res
-    .status(StatusCodes.InternalServerError)
-    .json({message: ErrorsNames.INTERNAL_PROBLEM});
+  } catch (err: any) {
+    console.log('create user error', err);
+  }
 };
 
 export const updateUser = async (req: Request, res: Response) => {
@@ -51,29 +56,33 @@ export const updateUser = async (req: Request, res: Response) => {
     sex, 
     avatar } = req.body;
 
-  const updatedUser = await usersServices.updateUserService(
-    { 
-      id,
-      email,
-      password,
-      firstName,
-      lastName,
-      age,
-      sex,
-      avatar,
+    try {
+      const updatedUser = await usersServices.updateUserService(
+        { 
+          id,
+          email,
+          password,
+          firstName,
+          lastName,
+          age,
+          sex,
+          avatar,
+        }
+      );
+    
+      if (updatedUser) {
+        return res
+          .status(StatusCodes.OK)
+          .json({
+            message: `${updatedUser.firstName} ${updatedUser.lastName} been successfully updated`,
+            user: updatedUser,
+          });
+      }
+      return res
+        .status(StatusCodes.InternalServerError)
+        .json({message: ErrorsNames.INTERNAL_PROBLEM});
+
+    } catch (err) {
+      console.log('update user error', err);
     }
-  );
-
-  if (updatedUser) {
-    return res
-      .status(StatusCodes.OK)
-      .json({
-        message: `${updatedUser.firstName} ${updatedUser.lastName} been successfully updated`,
-        user: updatedUser,
-      });
-  }
-
-  return res
-    .status(StatusCodes.InternalServerError)
-    .json({message: ErrorsNames.INTERNAL_PROBLEM});
 }

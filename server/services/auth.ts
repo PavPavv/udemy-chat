@@ -22,7 +22,7 @@ export const generateTokenService = (user: User) => {
 
 export const loginService = async (email: string, password: string) => {
   const user = await authDataAccess.getUserByEmail(email);
-
+  
   if (user) {
     if (!bcrypt.compareSync(password, user.password)) {
       return null;

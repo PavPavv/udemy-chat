@@ -4,7 +4,7 @@ export const authRules = (): any => {
   return [
     body('email').isEmail(),
     body('password').isLength({min: 6}),
-  ]
+  ];
 };
 
 export const registerRules = (): any => {  
@@ -15,5 +15,5 @@ export const registerRules = (): any => {
     body('password').isLength({min: 6}),
     body('age').notEmpty(),
     body('sex').notEmpty(),
-  ]
+  ];
 };

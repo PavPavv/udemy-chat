@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import * as usersControllers from '../controllers/users';
 import validate from "../validation";
-import { registerRules, } from "../validation/rules/auth";
+import { registerRules, passRules } from "../validation/rules/auth";
 import { updateUserRules } from "../validation/rules/users";
 import authMiddleware from "../middleware/auth";
 import { fileMiddleware } from "../middleware/fileUpload";

@@ -22,7 +22,7 @@ export const createUser = async (
   } catch (err: any) {
     console.log('user create error', err)
   }
-}
+};
 
 export const updateUser = async (
   id: string,
@@ -69,4 +69,4 @@ export const updateUser = async (
     console.log('err', err)
     return null;
   }
-}
+};

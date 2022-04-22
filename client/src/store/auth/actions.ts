@@ -63,6 +63,7 @@ export const loginActionThunk = (params: LoginInterface, navigate: NavigateFunct
 
   try {
     const res = await authService.login(params);
+    console.log(res)
     if (res.status === 200 && res.data && res.data.user) {
       dispatch(loginSuccess(res.data.user.user))
       navigate('/');

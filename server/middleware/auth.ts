@@ -7,7 +7,7 @@ import { StatusCodes } from "../constants/statusCodes";
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(" ")[1];
-  
+  console.log('req.headers["authorization"]',req.headers['authorization'])  
   if (!token) {
     return res
       .status(StatusCodes.Unauthorized)

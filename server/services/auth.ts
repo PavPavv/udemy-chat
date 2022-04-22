@@ -7,22 +7,20 @@ import { User } from '../types/users';
 
 export const generateTokenService = (user: User) => {
   user.password = '';
-  const token = jwt.sign(user, appConfig.appKey as string, {expiresIn: 860000});
-  const refreshToken = jwt.sign(user, appConfig.appKey as string, {expiresIn: 860000})
+  const token = jwt.sign(user, appConfig.appKey as string, {expiresIn: 86400});
+
   return {
     ...{
       user,
     },
     ...{
       token,
-      refreshToken,
     },
   }
 };
 
 export const loginService = async (email: string, password: string) => {
   const user = await authDataAccess.getUserByEmail(email);
-  
   if (user) {
     if (!bcrypt.compareSync(password, user.password)) {
       return null;
